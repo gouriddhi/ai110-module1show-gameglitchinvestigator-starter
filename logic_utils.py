@@ -1,3 +1,4 @@
+# FIX: moved from app.py to logic_utils.py with Claude Code
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
     if difficulty == "Easy":
@@ -30,7 +31,8 @@ def parse_guess(raw: str):
     
     return True, value, None
 
-
+#FIX: hint messages were reveresd.
+# moved from app.py to logic_utils.py with Claude Code
 def check_guess(guess, secret):
     """
     Compare guess to secret and return (outcome, message).

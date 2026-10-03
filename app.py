@@ -44,6 +44,8 @@ if "history" not in st.session_state:
 
 st.subheader("Make a guess")
 
+#fix: claude code changed the info box to use low/high instead of 1 to 100 always
+
 st.info(
     f"Guess a number between {low} and {high}. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
@@ -56,19 +58,21 @@ with st.expander("Developer Debug Info"):
     st.write("Difficulty:", difficulty)
     st.write("History:", st.session_state.history)
 
-raw_guess = st.text_input(
-    "Enter your guess:",
-    key=f"guess_input_{difficulty}"
-)
+with st.form("guess_form"):
+    raw_guess = st.text_input(
+        "Enter your guess:",
+        key=f"guess_input_{difficulty}"
+    )
+    submit = st.form_submit_button("Submit Guess 🚀")
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 with col1:
-    submit = st.button("Submit Guess 🚀")
-with col2:
     new_game = st.button("New Game 🔁")
-with col3:
+with col2:
     show_hint = st.checkbox("Show hint", value=True)
 
+#FIX: new game button was not resetting the game state properly.
+# Moved logic from app.py to here with Claude Code.
 if new_game:
     st.session_state.attempts = 0
     st.session_state.score = 0
@@ -95,7 +99,8 @@ if submit:
         st.error(err)
     else:
         st.session_state.history.append(guess_int)
-
+    # FIX: the secret was converted to a string on evem attempts, which caused the comparison to fail. 
+    # Moved logic from app.py to here with Claude Code.
         outcome, message = check_guess(guess_int, st.session_state.secret)
 
         if show_hint:
