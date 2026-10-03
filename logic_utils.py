@@ -1,11 +1,11 @@
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
     if difficulty == "Easy":
-            return 1, 20
+        return 1, 20
     if difficulty == "Normal":
-            return 1, 100
+        return 1, 100
     if difficulty == "Hard":
-            return 1, 50
+        return 1, 50
     return 1, 100
 
 def parse_guess(raw: str):
@@ -22,9 +22,9 @@ def parse_guess(raw: str):
     
     try:
         if "." in raw:
-                value = int(float(raw))
+            value = int(float(raw))
         else:
-                value = int(raw)
+            value = int(raw)
     except Exception:
         return False, None, "That is not a number."
     
