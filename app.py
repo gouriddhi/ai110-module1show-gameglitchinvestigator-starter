@@ -72,7 +72,8 @@ with col2:
     show_hint = st.checkbox("Show hint", value=True)
 
 #FIX: new game button was not resetting the game state properly.
-# Moved logic from app.py to here with Claude Code.
+# score or history and the range was not reset so used claude code to reset them
+
 if new_game:
     st.session_state.attempts = 0
     st.session_state.score = 0
@@ -99,7 +100,7 @@ if submit:
         st.error(err)
     else:
         st.session_state.history.append(guess_int)
-    # FIX: the secret was converted to a string on evem attempts, which caused the comparison to fail. 
+    # FIX: the secret was converted to a string on even attempts, which caused the comparison to fail. 
     # Moved logic from app.py to here with Claude Code.
         outcome, message = check_guess(guess_int, st.session_state.secret)
 
